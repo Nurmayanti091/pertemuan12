@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form Validation</title>
+    <script>
+        function validateForm() {
+            const nama = document.forms["myForm"]["nama"].value;
+            const email = document.forms["myForm"]["email"].value;
+            const jamKeberangkatan = document.forms["myForm"]["jamKeberangkatan"].value;
+            const tujuanKeberangkatan = document.forms["myForm"]["tujuanKeberangkatan"].value;
+            const jumlahTiket = document.forms["myForm"]["jumlahTiket"].value;
+
+            const errorNama = document.getElementById("errorNama");
+            const errorEmail = document.getElementById("errorEmail");
+            const errorJam = document.getElementById("errorjam");
+            const errorTujuan = document.getElementById("errortujuan");
+            const errorJumlah = document.getElementById("errorJumlah");
+
+            let isValid = true;
+
+            // Validasi Nama Pelanggan, Email, Jam Keberangkatan, Tujuan Keberangkatan, Jumlah Tiket
+            if (nama === '' || nama.lenght > 30) {
+                errorNama.textContent = "nama pelanggan wajib di isi max 30 huruf "
+                errorNama.style.color = "red";
+                isValid = false;
+            }
+
+            // validasi email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '' || !emailPattern.test(email)) {
+                errorEmail.textContent = "Email harus diisi dengan format yang benar";
+                errorEmail.style.color = "red";
+                isValid = false;
+            } else {
+                errorEmail.textContent = "";
+            }
+
+            // Laksukan validasi sesuai kebutuhan seperti yang telah dijelaskan sebelumnya.
+            // Jika semua validasi berhasil, tampilkan data di bawah form.
+
+            if (nama !== "" && email !== "" && jamKeberangkatan !== "" && tujuanKeberangkatan !== "" && jumlahTiket !== "") {
+                var displayData = document.getElementById("displayData");
+
+                // Menampilkan data di bawah form
+                displayData.innerHTML = "<h2> Selamat tiket anda sudah tervalidasi </h2>" +
+                    "<p>Nama Pelanggan: " + nama + "</p>" +
+                    "<p>Email: " + email + "</p>" +
+                    "<p>Jam Keberangkatan: " + jamKeberangkatan + "</p>" +
+                    "<p>Tujuan Keberangkatan: " + tujuanKeberangkatan + "</p>" +
+                    "<p>Jumlah Tiket: " + jumlahTiket + "</p>";
+            }
+
+            return false; // Prevent form submission
+        }
+    </script>
+</head>
+
+<body>
+
+    <h2>Formulir Pemesanan Tiket</h2>
+
+    <form name="myForm" onsubmit="return validateForm()" method="post">
+        <div>
+            <label for="nama">Nama Pelanggan:</label><br>
+            <input type="text" id="nama" name="nama" required maxlength="30"><br>
+            <span id="errorNama" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <span id="errorEmail" class="error"></span>
+        </div>
+        <div>
+            <label for="jamKeberangkatan">Jam Keberangkatan:</label><br>
+            <input type="text" id="jamKeberangkatan" name="jamKeberangkatan" required><br>
+            <span id="errorjam" class="error"></span>
+        </div>
+        <div>
+
+            <label for="tujuanKeberangkatan">Tujuan Keberangkatan:</label><br>
+            <input type="text" id="tujuanKeberangkatan" name="tujuanKeberangkatan" required><br>
+            <span id="errortujuan" class="error"></span>
+        </div>
+
+        <div>
+            <label for="jumlahTiket">Jumlah Tiket:</label><br>
+            <input type="number" id="jumlahTiket" name="jumlahTiket" required min="1" max="10"><br><br>
+            <span id="errorjumlah" class="error"></span>
+        </div>
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="displayData"></div> <!-- Menampilkan data di bawah form -->
+
+</body>
+
+</html>
